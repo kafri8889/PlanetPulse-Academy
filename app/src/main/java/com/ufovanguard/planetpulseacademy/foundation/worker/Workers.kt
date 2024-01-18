@@ -5,6 +5,7 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.workDataOf
+import com.ufovanguard.planetpulseacademy.data.model.remote.body.AddAcademyBody
 import com.ufovanguard.planetpulseacademy.data.model.remote.body.ForgotPasswordBody
 import com.ufovanguard.planetpulseacademy.data.model.remote.body.LoginBody
 import com.ufovanguard.planetpulseacademy.data.model.remote.body.RegisterBody
@@ -131,6 +132,22 @@ object Workers {
 			.setInputData(
 				workDataOf(
 					GetAllLessonWorker.EXTRA_TOKEN to token
+				)
+			)
+			.build()
+	}
+
+	fun addAcademy(token: String, body: AddAcademyBody): OneTimeWorkRequest {
+		return OneTimeWorkRequestBuilder<AddAcademyWorker>()
+			.setConstraints(
+				Constraints(
+					requiredNetworkType = NetworkType.CONNECTED
+				)
+			)
+			.setInputData(
+				workDataOf(
+					AddAcademyWorker.EXTRA_TOKEN to token,
+					AddAcademyWorker.EXTRA_REQUEST_BODY to body.toJson()
 				)
 			)
 			.build()

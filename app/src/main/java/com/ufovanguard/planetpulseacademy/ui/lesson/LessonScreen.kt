@@ -37,6 +37,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptionsBuilder
 import com.ufovanguard.planetpulseacademy.R
 import com.ufovanguard.planetpulseacademy.data.Destination
+import com.ufovanguard.planetpulseacademy.data.model.Lesson
 import com.ufovanguard.planetpulseacademy.foundation.base.ui.BaseScreenWrapper
 import com.ufovanguard.planetpulseacademy.foundation.theme.PPATheme
 import com.ufovanguard.planetpulseacademy.foundation.theme.PlanetPulseAcademyTheme
@@ -72,6 +73,7 @@ fun LessonScreen(
 		LessonScreenContent(
 			state = state,
 			onSearchQueryChange = viewModel::setSearchQuery,
+			onLessonClicked = viewModel::addLesson,
 			onNavigateUp = onNavigateUp,
 			onRefresh = viewModel::refresh,
 			onSearch = viewModel::search,
@@ -89,6 +91,7 @@ private fun LessonScreenContent(
 	state: LessonState,
 	modifier: Modifier = Modifier,
 	onSearchQueryChange: (String) -> Unit = {},
+	onLessonClicked: (Lesson) -> Unit = {},
 	onNavigateUp: () -> Unit = {},
 	onRefresh: () -> Unit = {},
 	onSearch: () -> Unit = {}
@@ -192,6 +195,9 @@ private fun LessonScreenContent(
 			) { lesson ->
 				LessonItem(
 					lesson = lesson,
+					onClick = {
+						onLessonClicked(lesson)
+					},
 					modifier = Modifier
 						.fillMaxWidth(0.92f)
 				)

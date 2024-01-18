@@ -4,8 +4,10 @@ import com.ufovanguard.planetpulseacademy.data.datasource.local.dao.AcademyDao
 import com.ufovanguard.planetpulseacademy.data.datasource.remote.AcademyService
 import com.ufovanguard.planetpulseacademy.data.model.Academy
 import com.ufovanguard.planetpulseacademy.data.model.remote.response.AcademyResponse
+import com.ufovanguard.planetpulseacademy.data.model.remote.response.AddAcademyResponse
 import com.ufovanguard.planetpulseacademy.data.repository.AcademyRepository
 import kotlinx.coroutines.flow.Flow
+import okhttp3.RequestBody
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -13,6 +15,12 @@ class AcademyRepositoryImpl @Inject constructor(
 	private val academyService: AcademyService,
 	private val academyDao: AcademyDao
 ): AcademyRepository {
+	override suspend fun addRemoteAcademy(
+		token: String,
+		body: RequestBody
+	): Response<AddAcademyResponse> {
+		return academyService.addAcademy(token, body)
+	}
 
 	override suspend fun getRemoteAcademy(token: String): Response<AcademyResponse> {
 		return academyService.getAcademy(token)

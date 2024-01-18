@@ -8,6 +8,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
@@ -59,7 +63,8 @@ private fun LessonItemPreview() {
 @Composable
 fun LessonItem(
 	lesson: Lesson,
-	modifier: Modifier = Modifier
+	modifier: Modifier = Modifier,
+	onClick: () -> Unit
 ) {
 
 	CoreLessonItem(
@@ -105,6 +110,14 @@ fun LessonItem(
 				maxLines = maxLines,
 				overflow = TextOverflow.Ellipsis
 			)
+		},
+		trailingContent = {
+			FilledIconButton(onClick = onClick) {
+				Icon(
+					imageVector = Icons.Rounded.Add,
+					contentDescription = null
+				)
+			}
 		}
 	)
 }
@@ -115,6 +128,7 @@ private fun CoreLessonItem(
 	image: @Composable BoxScope.() -> Unit,
 	title: @Composable () -> Unit,
 	description: @Composable (maxLines: Int) -> Unit,
+	trailingContent: @Composable () -> Unit = {}
 ) {
 
 	Row(
@@ -142,6 +156,8 @@ private fun CoreLessonItem(
 				description(DESCRIPTION_MAX_LINES)
 			}
 		}
+
+		trailingContent()
 	}
 }
 

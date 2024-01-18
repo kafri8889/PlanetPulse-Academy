@@ -2,10 +2,14 @@ package com.ufovanguard.planetpulseacademy.data.repository
 
 import com.ufovanguard.planetpulseacademy.data.model.Academy
 import com.ufovanguard.planetpulseacademy.data.model.remote.response.AcademyResponse
+import com.ufovanguard.planetpulseacademy.data.model.remote.response.AddAcademyResponse
 import kotlinx.coroutines.flow.Flow
+import okhttp3.RequestBody
 import retrofit2.Response
 
 interface AcademyRepository {
+
+	suspend fun addRemoteAcademy(token: String, body: RequestBody): Response<AddAcademyResponse>
 
 	suspend fun getRemoteAcademy(token: String): Response<AcademyResponse>
 

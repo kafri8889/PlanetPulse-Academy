@@ -1,6 +1,7 @@
 package com.ufovanguard.planetpulseacademy.data.datasource.remote
 
 import com.ufovanguard.planetpulseacademy.data.model.remote.response.AcademyResponse
+import com.ufovanguard.planetpulseacademy.data.model.remote.response.AddAcademyResponse
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -19,6 +20,6 @@ interface AcademyService {
 	suspend fun addAcademy(
 		@Header("Authorization") token: String,
 		@Body body: RequestBody
-	): Response<AcademyResponse>
+	): Response<AddAcademyResponse>
 
 }
