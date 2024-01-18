@@ -8,29 +8,35 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.boundsInParent
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import com.ufovanguard.planetpulseacademy.data.datasource.local.LocalQuizDataProvider
+import com.ufovanguard.planetpulseacademy.data.model.Quiz
+import com.ufovanguard.planetpulseacademy.foundation.theme.PPATheme
 import com.ufovanguard.planetpulseacademy.foundation.theme.PlanetPulseAcademyTheme
 
 @Preview(device = "spec:width=392.7dp,height=1050dp,dpi=440")
 @Composable
 private fun StageListPreview() {
 	PlanetPulseAcademyTheme {
-		StageList(
+		QuizList(
+			quizzes = LocalQuizDataProvider.values,
 			modifier = Modifier
 				.fillMaxSize()
 		)
@@ -38,8 +44,11 @@ private fun StageListPreview() {
 }
 
 @Composable
-fun StageList(
-	modifier: Modifier = Modifier
+fun QuizList(
+	quizzes: List<Quiz>,
+	modifier: Modifier = Modifier,
+	nodeColor: Color = PPATheme.colorScheme.button,
+	onClick: (Quiz) -> Unit = {}
 ) {
 
 	val nodeSize = 64.dp
@@ -48,7 +57,6 @@ fun StageList(
 
 	var listBounds by remember { mutableStateOf(Rect.Zero) }
 
-	val context = LocalContext.current
 	BoxWithConstraints(
 		modifier = modifier
 	) {
@@ -59,8 +67,12 @@ fun StageList(
 					listBounds = coordinates.boundsInParent()
 				}
 		) {
-			items(50) { index ->
+			itemsIndexed(
+				items = quizzes,
+				key = { _, quiz -> quiz.id }
+			) { index, quiz ->
 				Box(
+					contentAlignment = Alignment.Center,
 					modifier = Modifier
 						.offset {
 							IntOffset(
@@ -85,11 +97,18 @@ fun StageList(
 						}
 						.size(nodeSize)
 						.clip(CircleShape)
-						.background(Color.Black)
+						.background(nodeColor)
 						.clickable {
-
+							onClick(quiz)
 						}
-				)
+				) {
+					Text(
+						text = index.plus(1).toString(),
+						style = PPATheme.typography.titleMedium.copy(
+							color = PPATheme.colorScheme.onBackground
+						)
+					)
+				}
 			}
 		}
 	}

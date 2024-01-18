@@ -108,6 +108,9 @@ fun HomeScreen(
 			state = state,
 			onRefresh = viewModel::refresh,
 			navigateTo = navigateTo,
+			onAcademyClick = { academy ->
+				navigateTo(Destinations.Main.stage, null)
+			},
 			modifier = Modifier
 				.background(PPATheme.colorScheme.background)
 				.padding(scaffoldPadding)
@@ -211,7 +214,7 @@ private fun HomeScreenContent(
 							) {
 								for (category in LocalLessonCategoryDataProvider.values) {
 									CategoryProgress(
-										progress = 0.4f,
+										progress = 0.0f,
 										category = category.name,
 										boxWidth = dpSize.width
 									)
@@ -399,11 +402,11 @@ private fun AcademyItem(
 				)
 
 				CircleProgress(
-					progressAngle = { 90f },
+					progressAngle = { 0f },
 					centerContent = {
 						Row {
 							AnimatedTextByChar(
-								text = "90",
+								text = "0",
 								style = PPATheme.typography.bodyMedium
 							)
 

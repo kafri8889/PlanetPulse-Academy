@@ -17,6 +17,7 @@ object DestinationRoute {
 	const val ACADEMY = "academy"
 	const val PROFILE = "profile"
 	const val LESSON = "lesson"
+	const val STAGE = "stage"
 	const val LOGIN = "login"
 	const val QUIZ = "quiz"
 	const val HOME = "home"
@@ -150,6 +151,10 @@ object Destinations {
 
 		val quiz = Destination(
 			route = DestinationRoute.QUIZ
+		)
+
+		val stage = Destination(
+			route = DestinationRoute.STAGE
 		)
 
 		val lesson = Destination(

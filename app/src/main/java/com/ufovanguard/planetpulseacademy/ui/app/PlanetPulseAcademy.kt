@@ -55,6 +55,7 @@ import com.ufovanguard.planetpulseacademy.ui.onboarding.OnboardingScreen
 import com.ufovanguard.planetpulseacademy.ui.profile.ProfileScreen
 import com.ufovanguard.planetpulseacademy.ui.quiz.QuizScreen
 import com.ufovanguard.planetpulseacademy.ui.register.RegisterScreen
+import com.ufovanguard.planetpulseacademy.ui.stage.StageScreen
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterialNavigationApi::class)
 @Composable
@@ -162,6 +163,13 @@ fun PlanetPulseAcademy(
 							) {
 								composable(Destinations.Main.home.route) { backEntry ->
 									HomeScreen(
+										viewModel = hiltViewModel(backEntry),
+										navigateTo = navigateTo
+									)
+								}
+
+								composable(Destinations.Main.stage.route) { backEntry ->
+									StageScreen(
 										viewModel = hiltViewModel(backEntry),
 										navigateTo = navigateTo
 									)

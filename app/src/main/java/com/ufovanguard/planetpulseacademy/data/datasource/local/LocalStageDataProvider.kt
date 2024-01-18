@@ -11,7 +11,8 @@ object LocalStageDataProvider {
 		difficulty = 1,
 		createdAt = "2024-01-13T12:30:49.207Z",
 		updatedAt = "2024-01-15T12:14:31.418Z",
-		v = 0
+		v = 0,
+		quizzes = LocalQuizDataProvider.values
 	)
 
 	val values = listOf(
